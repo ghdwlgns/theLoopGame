@@ -4,7 +4,7 @@ from pygame.locals import *
 
 class Player:
     def __init__(self, x, y):
-        self.sprite_sheet = pg.image.load('assets/Free RGW Sprites/16x16/Character_001.png')
+        self.sprite_sheet = pg.image.load('assets/16x16/Character_001.png')
         self.clock = pg.time.Clock()
         self.rows = 4
         self.columns = 4
@@ -16,6 +16,7 @@ class Player:
         self.character_y = y
         self.is_walking = False
         self.direction = "down"
+        self.clock = pg.time.Clock()
 
     def update(self):
         if self.is_walking:
@@ -37,6 +38,8 @@ class Player:
                 self.current_frame_y = 2
                 if self.character_x < 700:
                     self.character_x += 5
+
+            self.clock.tick(10)
 
         else:
             if self.direction == "up":

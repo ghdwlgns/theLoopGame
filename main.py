@@ -1,6 +1,7 @@
-import pygame, sys
-from pygame.locals import *
+import pygame
+import sys
 
+from object.MessageBox import MessageBox
 from object.Player import Player
 
 
@@ -9,11 +10,9 @@ def main():
 
     width, height = 700, 500
     screen = pygame.display.set_mode((width, height))
-    background = pygame.display.set_mode((width, height))
-
-    clock = pygame.time.Clock()
 
     character = Player(width // 2, height // 2)
+    message_box = MessageBox()
 
     # 게임 루프
     while True:
@@ -39,9 +38,9 @@ def main():
         screen.fill((255, 255, 255))
         screen.blit(character.get_current_sprite(), (character.character_x, character.character_y))
 
+        message_box.update("안녕하세요!")
+        message_box.draw(screen)
         pygame.display.flip()
-
-        clock.tick(5)
 
 
 # Press the green button in the gutter to run the script.
