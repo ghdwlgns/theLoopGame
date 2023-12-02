@@ -14,52 +14,54 @@ class Player:
         self.character_x = x
         self.character_y = y
         self.is_walking = False
-        self.direction = "down"
+        self.direction_x = "left"
+        self.direction_y = "up"
         self.clock = pg.time.Clock()
 
     def update(self):
         if self.is_walking:
             self.current_frame_x = (self.current_frame_x + 1) % self.columns
 
-            if self.direction == "up":
+            if self.direction_y == "up":
                 self.current_frame_y = 3
                 if self.character_y > 0:
                     self.character_y -= 5
-            elif self.direction == "down":
+            elif self.direction_y == "down":
                 self.current_frame_y = 0
                 if self.character_y < 500:
                     self.character_y += 5
-            elif self.direction == "left":
+            if self.direction_x == "left":
                 self.current_frame_y = 1
                 if self.character_x > 0:
                     self.character_x -= 5
-            elif self.direction == "right":
+            elif self.direction_x == "right":
                 self.current_frame_y = 2
                 if self.character_x < 700:
                     self.character_x += 5
 
             self.clock.tick(10)
 
-        else:
-            if self.direction == "up":
+        else: # 대각선 멈춤 귀찮아서 구현 안함.
+            if self.direction_y == "up":
                 self.current_frame_x = 0
                 self.current_frame_y = 3
 
-            elif self.direction == "down":
+            elif self.direction_y == "down":
                 self.current_frame_x = 0
                 self.current_frame_y = 0
 
-            elif self.direction == "left":
+            if self.direction_x == "left":
                 self.current_frame_x = 0
                 self.current_frame_y = 1
 
-            elif self.direction == "right":
+            elif self.direction_x == "right":
                 self.current_frame_x = 0
                 self.current_frame_y = 2
 
-    def start_moving(self, direction):
+    def start_moving(self, direction_x, direction_y):
         self.is_walking = True
-        self.direction = direction
+        self.direction_x = "right" if direction_x == 1 else "left" if direction_x == -1 else "stop"
+        self.direction_y = "up" if direction_y == 1 else "down" if direction_y == -1 else "stop"
 
     def stop_moving(self):
         self.is_walking = False

@@ -14,6 +14,13 @@ def main():
     character = Player(width // 2, height // 2)
     message_box = MessageBox()
 
+    key_states = {
+        "up": False,
+        "down": False,
+        "left": False,
+        "right": False
+    }
+
     # 게임 루프
     while True:
         for event in pygame.event.get():
@@ -22,16 +29,30 @@ def main():
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
-                    character.start_moving("up")
+                    key_states["up"] = True
                 elif event.key == pygame.K_DOWN:
-                    character.start_moving("down")
+                    key_states["down"] = True
                 elif event.key == pygame.K_LEFT:
-                    character.start_moving("left")
+                    key_states["left"] = True
                 elif event.key == pygame.K_RIGHT:
-                    character.start_moving("right")
+                    key_states["right"] = True
             elif event.type == pygame.KEYUP:
-                if event.key in [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT]:
-                    character.stop_moving()
+                if event.key == pygame.K_UP:
+                    key_states["up"] = False
+                elif event.key == pygame.K_DOWN:
+                    key_states["down"] = False
+                elif event.key == pygame.K_LEFT:
+                    key_states["left"] = False
+                elif event.key == pygame.K_RIGHT:
+                    key_states["right"] = False
+
+        direction_x = key_states["right"] - key_states["left"]
+        direction_y = key_states["up"] - key_states["down"]
+
+        if direction_x or direction_y:
+            character.start_moving(direction_x, direction_y)
+        else:
+            character.stop_moving()
 
         character.update()
 
