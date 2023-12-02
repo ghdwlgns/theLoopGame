@@ -36,7 +36,7 @@ def main():
         character.update()
 
         screen.fill((255, 255, 255))
-        screen.blit(character.get_current_sprite(), (character.character_x, character.character_y))
+        character.draw(screen)
 
         message_box.update("안녕하세요!")
         message_box.draw(screen)
