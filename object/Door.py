@@ -9,7 +9,7 @@ class Door(Object):
 
     def interact(self, player, message_box):
         if not self.is_opened:
-            if player.hasItem(self.required_key):
+            if player.has_item(self.required_key):
                 message_box.update("잠금을 해제했다.")
                 self.is_opened = True
             else:
