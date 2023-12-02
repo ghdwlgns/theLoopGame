@@ -68,3 +68,6 @@ class Player:
         frame_x = self.current_frame_x * self.sprite_width
         frame_y = self.current_frame_y * self.sprite_height
         return self.sprite_sheet.subsurface(pg.Rect(frame_x, frame_y, self.sprite_width, self.sprite_height))
+
+    def draw(self, screen):
+        screen.blit(self.get_current_sprite(), (self.character_x, self.character_y))
