@@ -7,4 +7,4 @@ class Object:
         self.y = y
         self.width = width
         self.height = height
-        self.object_sprite_sheet = pg.image.load(image_uri)
+        # self.object_sprite_sheet = pg.image.load(image_uri)
