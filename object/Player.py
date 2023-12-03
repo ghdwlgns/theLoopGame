@@ -16,6 +16,7 @@ class Player:
         self.is_walking = False
         self.direction_x = "left"
         self.direction_y = "up"
+        self.inventory = []
         self.clock = pg.time.Clock()
 
     def update(self):
@@ -65,6 +66,16 @@ class Player:
 
     def stop_moving(self):
         self.is_walking = False
+
+    def add_item(self, item):
+        self.inventory.append(item)
+
+    def has_item(self, item):
+        # TODO: 인벤토리에 해당 아이템 객체가 존재하는지 확인하는 메서드
+        pass
+
+    def remove_item(self, item):
+        self.inventory.remove(item)
 
     def get_current_sprite(self):
         frame_x = self.current_frame_x * self.sprite_width

@@ -14,7 +14,7 @@ class Object(ABC):
 
     # 상호작용 함수
     @abstractmethod
-    def interact(self):
+    def interact(self, character, message_box):
         pass
 
     def draw(self, screen):
