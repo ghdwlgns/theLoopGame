@@ -1,12 +1,17 @@
 import pygame
 import sys
 
+from drivers.Display import Display
+from drivers.Joystick import Joystick
 from objects.MessageBox import MessageBox
 from objects.Player import Player
 
 
 def main():
     pygame.init()
+    Joystick()
+    display = Display()
+    display.init()
 
     width, height = 700, 500
     screen = pygame.display.set_mode((width, height))
@@ -61,7 +66,9 @@ def main():
 
         message_box.update("안녕하세요!")
         message_box.draw(screen)
-        pygame.display.flip()
+        
+        pygame.display.update()
+        display.disp(screen)
 
 
 # Press the green button in the gutter to run the script.
