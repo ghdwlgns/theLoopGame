@@ -1,8 +1,10 @@
 import pygame as pg
 
+from objects.Memo import Memo
+
 
 class Player:
-    def __init__(self, x, y):
+    def __init__(self, x, y, message_box):
         self.sprite_sheet = pg.image.load('assets/16x16/Character_001.png')
         self.clock = pg.time.Clock()
         self.rows = 4
@@ -17,10 +19,12 @@ class Player:
         self.is_walking = False
         self.direction_x = "left"
         self.direction_y = "up"
-        self.inventory = []
+        self.inventory = [Memo("쪽지", "설명")]
         self.clock = pg.time.Clock()
         self.inventory_opened = False
         self.inventory_idx = 0
+
+        self.message_box = message_box
 
     def update(self):
         if self.is_walking:
@@ -45,7 +49,7 @@ class Player:
 
             self.clock.tick(10)
 
-        else: # 대각선 멈춤 귀찮아서 구현 안함.
+        else:
             if self.direction_y == "up":
                 self.current_frame_x = 0
                 self.current_frame_y = 3
@@ -97,7 +101,7 @@ class Player:
     def use_item(self):
         if self.inventory_opened:
             item = self.inventory[self.inventory_idx]
-            item.use()
+            item.use(self.message_box)
 
     def get_current_sprite(self):
         frame_x = self.current_frame_x * self.sprite_width

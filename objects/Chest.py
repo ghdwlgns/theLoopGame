@@ -7,4 +7,4 @@ class Chest(Object):
         self.inventory = items
 
     def interact(self, character, message_box):
-        print("사용")
+        message_box.update_message("사용")
