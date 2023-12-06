@@ -2,8 +2,8 @@ from objects.Object import Object
 
 
 class Door(Object):
-    def __init__(self, x, y, width, height, sprite_uri, required_key):
-        super().__init__(x, y, width, height, sprite_uri)
+    def __init__(self, x, y, sprite_uri, required_key, name):
+        super().__init__(x, y, sprite_uri, name)
         self.required_key = required_key
         self.is_opened = False
 
