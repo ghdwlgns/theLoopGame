@@ -71,8 +71,7 @@ class Player:
         self.inventory.append(item)
 
     def has_item(self, item):
-        # TODO: 인벤토리에 해당 아이템 객체가 존재하는지 확인하는 메서드
-        pass
+        return any(existing_item == item for existing_item in self.inventory)
 
     def remove_item(self, item):
         self.inventory.remove(item)
