@@ -1,8 +1,10 @@
 import pygame as pg
 
+from objects.Memo import Memo
+
 
 class Player:
-    def __init__(self, x, y):
+    def __init__(self, x, y, message_box):
         self.sprite_sheet = pg.image.load('assets/16x16/Character_001.png')
         self.clock = pg.time.Clock()
         self.rows = 4
@@ -11,13 +13,18 @@ class Player:
         self.sprite_height = self.sprite_sheet.get_height() // self.columns
         self.current_frame_x = 0
         self.current_frame_y = 0
-        self.character_x = x
-        self.character_y = y
+        self.x = x
+        self.y = y
+        self.rect = pg.Rect(x, y, self.sprite_width, self.sprite_height)
         self.is_walking = False
         self.direction_x = "left"
         self.direction_y = "up"
-        self.inventory = []
+        self.inventory = [Memo("쪽지", "설명")]
         self.clock = pg.time.Clock()
+        self.inventory_opened = False
+        self.inventory_idx = 0
+
+        self.message_box = message_box
 
     def update(self):
         if self.is_walking:
@@ -25,24 +32,24 @@ class Player:
 
             if self.direction_y == "up":
                 self.current_frame_y = 3
-                if self.character_y > 0:
-                    self.character_y -= 5
+                if self.y > 0:
+                    self.y -= 5
             elif self.direction_y == "down":
                 self.current_frame_y = 0
-                if self.character_y < 500:
-                    self.character_y += 5
+                if self.y < 500:
+                    self.y += 5
             if self.direction_x == "left":
                 self.current_frame_y = 1
-                if self.character_x > 0:
-                    self.character_x -= 5
+                if self.x > 0:
+                    self.x -= 5
             elif self.direction_x == "right":
                 self.current_frame_y = 2
-                if self.character_x < 700:
-                    self.character_x += 5
+                if self.x < 700:
+                    self.x += 5
 
             self.clock.tick(10)
 
-        else: # 대각선 멈춤 귀찮아서 구현 안함.
+        else:
             if self.direction_y == "up":
                 self.current_frame_x = 0
                 self.current_frame_y = 3
@@ -76,10 +83,30 @@ class Player:
     def remove_item(self, item):
         self.inventory.remove(item)
 
+    def open_inven(self):
+        self.inventory_opened = True
+        self.inventory_idx = 0
+
+    def close_inven(self):
+        self.inventory_opened = False
+
+    def select_item_in_inven(self, direction):
+        if self.inventory_opened:
+            max_index = len(self.inventory) - 1
+            if direction == "up":
+                self.inventory_idx = max(0, self.inventory_idx - 1)
+            elif direction == "down":
+                self.inventory_idx = min(max_index, self.inventory_idx + 1)
+
+    def use_item(self):
+        if self.inventory_opened:
+            item = self.inventory[self.inventory_idx]
+            item.use(self.message_box)
+
     def get_current_sprite(self):
         frame_x = self.current_frame_x * self.sprite_width
         frame_y = self.current_frame_y * self.sprite_height
         return self.sprite_sheet.subsurface(pg.Rect(frame_x, frame_y, self.sprite_width, self.sprite_height))
 
     def draw(self, screen):
-        screen.blit(self.get_current_sprite(), (self.character_x, self.character_y))
+        screen.blit(self.get_current_sprite(), (self.x, self.y))
