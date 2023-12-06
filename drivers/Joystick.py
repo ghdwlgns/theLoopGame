@@ -1,9 +1,11 @@
 import RPi.GPIO as GPIO
 import keyboard
+import pygame as pg
+from pygame.locals import *
 
 class Joystick:
     def __init__(self):
-        self.BUTTON_MAP = {5: 'A', 6: 'B', 27: 'K_LEFT', 23: 'K_RIGHT', 17: 'K_UP', 22: 'J_DOWN', 4: 'C'}
+        self.BUTTON_MAP = {5: 'K_b', 6: 'K_a', 27: 'K_LEFT', 23: 'K_RIGHT', 17: 'K_UP', 22: 'K_DOWN', 4: 'C'}
         GPIO.setmode(GPIO.BCM)
 
         for pin in self.BUTTON_MAP.keys():
@@ -14,6 +16,6 @@ class Joystick:
         key = self.BUTTON_MAP.get(pin)
         if key:
             if GPIO.input(pin) == GPIO.LOW:
-                keyboard.press(key)
+                pg.event.post(pg.event.Event(KEYDOWN, {'key': getattr(pg.locals, key)}))
             else:
-                keyboard.release(key)
+                pg.event.post(pg.event.Event(KEYUP, {'key': getattr(pg.locals, key)}))
