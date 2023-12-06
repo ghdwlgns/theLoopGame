@@ -1,8 +1,8 @@
 import pygame
 import sys
 
-from object.MessageBox import MessageBox
-from object.Player import Player
+from objects.MessageBox import MessageBox
+from objects.Player import Player
 
 
 def main():

@@ -1,4 +1,4 @@
-from object.Object import Object
+from objects.Object import Object
 
 
 class Door(Object):
@@ -12,6 +12,7 @@ class Door(Object):
             if player.has_item(self.required_key):
                 message_box.update("잠금을 해제했다.")
                 self.is_opened = True
+                player.remove_item(self.required_key)
             else:
                 message_box.update("열쇠가 필요하다.")
         else:
