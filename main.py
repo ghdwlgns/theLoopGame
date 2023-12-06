@@ -6,12 +6,17 @@ from objects.Chest import Chest
 from objects.Door import Door
 from objects.Item import Item
 from objects.Key import Key
+from drivers.Display import Display
+from drivers.Joystick import Joystick
 from objects.MessageBox import MessageBox
 from objects.Player import Player
 
 
 def main():
     pygame.init()
+    Joystick()
+    display = Display()
+    display.init()
 
     width, height = 700, 500
     screen = pygame.display.set_mode((width, height))
@@ -95,6 +100,8 @@ def main():
         player.draw(screen)
         cake.draw(screen)
 
+        pygame.display.update()
+        display.disp(screen)
         message_box.draw(player, screen)
 
         pygame.display.flip()
