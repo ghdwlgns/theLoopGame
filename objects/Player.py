@@ -4,8 +4,8 @@ from objects.Memo import Memo
 
 
 class Player:
-    def __init__(self, x, y, message_box):
-        self.sprite_sheet = pg.image.load('theLoopGame/assets/rogue spritesheet calciumtrice.png')
+    def __init__(self, x, y, width, height, message_box):
+        self.sprite_sheet = pg.image.load('assets/rogue spritesheet calciumtrice.png')
         self.clock = pg.time.Clock()
         self.rows = 10
         self.columns = 10
@@ -15,6 +15,8 @@ class Player:
         self.current_frame_y = 0
         self.x = x
         self.y = y
+        self.width = width
+        self.height = height
         self.rect = pg.Rect(x, y, self.sprite_width, self.sprite_height)
         self.is_walking = False
         self.direction = "down"
@@ -32,19 +34,19 @@ class Player:
 
             if self.direction == "up":
                 self.current_frame_y = 2
-                if self.y > 0:
+                if self.y > self.height[0]:
                     self.y -= 5
             elif self.direction == "down":
                 self.current_frame_y = 2
-                if self.y < 240:
+                if self.y < self.height[1]:
                     self.y += 5
             if self.direction == "left":
                 self.current_frame_y = 2
-                if self.x > 0:
+                if self.x > self.width[0]:
                     self.x -= 5
             elif self.direction == "right":
                 self.current_frame_y = 2
-                if self.x < 240:
+                if self.x < self.width[1]:
                     self.x += 5
 
             self.clock.tick(10)
@@ -102,3 +104,13 @@ class Player:
 
     def draw(self, screen):
         screen.blit(self.get_current_sprite(), (self.x, self.y))
+
+    def get_state(self):
+        return {
+            'position_x': self.x,
+            'position_y': self.y
+        }
+
+    def load_state(self, state):
+        self.x = state['position_x']
+        self.y = state['position_y']

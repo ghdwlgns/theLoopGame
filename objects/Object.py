@@ -8,8 +8,8 @@ class Object(ABC):
         self.x = x
         self.y = y
         self.object_sprite_sheet = pg.image.load(image_uri)
-        self.width = self.object_sprite_sheet.get_width()
-        self.height = self.object_sprite_sheet.get_height()
+        self.width = 30
+        self.height = 30
         self.name = name
         self.rect = pg.Rect(self.x, self.y, self.width, self.height)
 
@@ -20,3 +20,11 @@ class Object(ABC):
 
     def draw(self, screen):
         screen.blit(self.object_sprite_sheet, (self.x, self.y))
+
+    @abstractmethod
+    def get_state(self):
+        pass
+
+    @abstractmethod
+    def load_state(self):
+        pass

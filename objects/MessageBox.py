@@ -17,7 +17,7 @@ class MessageBox:
             self.height = 100
             self.rect = pg.Rect(x, y, self.width, self.height)
             self.messages = []
-            self.font = pg.font.Font("theLoopGame/assets/NanumFontSetup_TTF_GOTHIC/NanumGothicLight.ttf", 18)
+            self.font = pg.font.Font("assets/NanumFontSetup_TTF_GOTHIC/NanumGothicLight.ttf", 18)
             self.visible = False
             self.alpha = 150
             self.selected_index = 0

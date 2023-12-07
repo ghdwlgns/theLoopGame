@@ -21,3 +21,16 @@ class Door(Object):
     def draw(self, screen):
         if not self.is_opened:
             screen.blit(self.object_sprite_sheet, (self.x, self.y))
+
+
+    def get_state(self):
+        return {
+            'name': self.name,
+            'required_key': self.required_key,
+            'is_opened': self.is_opened
+        }
+    
+    def load_state(self, state):
+        self.name = state['name']
+        self.required_key = state['required_key']
+        self.is_opened = state['is_opened']
