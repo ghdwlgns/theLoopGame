@@ -34,20 +34,20 @@ class Player:
 
             if self.direction == "up":
                 self.current_frame_y = 2
-                if self.y > self.height[0]:
-                    self.y -= 5
+                if self.rect.y > self.height[0]:
+                    self.rect.y -= 5
             elif self.direction == "down":
                 self.current_frame_y = 2
-                if self.y < self.height[1]:
-                    self.y += 5
+                if self.rect.y < self.height[1]:
+                    self.rect.y += 5
             if self.direction == "left":
                 self.current_frame_y = 2
-                if self.x > self.width[0]:
-                    self.x -= 5
+                if self.rect.x > self.width[0]:
+                    self.rect.x -= 5
             elif self.direction == "right":
                 self.current_frame_y = 2
-                if self.x < self.width[1]:
-                    self.x += 5
+                if self.rect.x < self.width[1]:
+                    self.rect.x += 5
 
             self.clock.tick(10)
 
@@ -103,7 +103,7 @@ class Player:
         
 
     def draw(self, screen):
-        screen.blit(self.get_current_sprite(), (self.x, self.y))
+        screen.blit(self.get_current_sprite(), self.rect.topleft)
 
     def get_state(self):
         return {

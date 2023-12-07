@@ -19,7 +19,7 @@ class Object(ABC):
         pass
 
     def draw(self, screen):
-        screen.blit(self.object_sprite_sheet, (self.x, self.y))
+        screen.blit(self.object_sprite_sheet, self.rect.topleft)
 
     @abstractmethod
     def get_state(self):

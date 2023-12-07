@@ -41,7 +41,7 @@ def main():
 
     objects = [cake]
 
-    timer_interval = 5000
+    timer_interval = 120000
     pygame.time.set_timer(pygame.USEREVENT, timer_interval)
 
     time_loop = GameObject()
@@ -49,7 +49,6 @@ def main():
 
     # 게임 루프
     while True:
-        print("State saved..")
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -84,19 +83,17 @@ def main():
                 if event.key in [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT]:
                     player.stop_moving()
 
-            # elif event.type == pygame.USEREVENT:
-            #     pygame.time.delay(1000)
-            #     load_data = time_loop.load_game_state()
-            #     player.load_state(load_data['player'])
-            #     for obj, obj_state in zip(objects, load_data['objects']):
-            #         obj.load_state(obj_state)
-            #     print("State loaded..")
+            elif event.type == pygame.USEREVENT:
+                pygame.time.delay(1000)
+                load_data = time_loop.load_game_state()
+                player.load_state(load_data['player'])
+                for obj, obj_state in zip(objects, load_data['objects']):
+                    obj.load_state(obj_state)
+                print("State loaded..")
 
         for obj in objects:
             if player.rect.colliderect(obj.rect):
-                print("Crashed")
                 player.stop_moving()
-                break
             
         player.update()
 

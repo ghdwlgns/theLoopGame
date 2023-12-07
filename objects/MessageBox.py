@@ -41,6 +41,7 @@ class MessageBox:
         screen.blit(surface, (self.rect.x, self.rect.y))
 
         for i, message in enumerate(self.messages):
+            print(message)
             text = self.font.render(message, True, (255, 255, 255))
             screen.blit(text, (self.rect.x, self.rect.y + i * 30))
 
